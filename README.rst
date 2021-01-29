@@ -13,7 +13,7 @@ How does it work?
 Based on your domains and your generated API-Key, the program can
 be used to periodically update the IP.
 
-1. Create a user account at dynu.com
+1. Create a user account at http://dynu.com
 
 2. Add Dynamic DNS domain(s) to your account (paid, yearly fee).
 
