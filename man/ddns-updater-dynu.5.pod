@@ -1,0 +1,181 @@
+#   Copyright
+#
+#	Copyright (C) 2021 Jari Aalto
+#
+#   License
+#
+#       This program is free software; you can redistribute it and/or modify
+#       it under the terms of the GNU General Public License as published by
+#       the Free Software Foundation; either version 2 of the License, or
+#       (at your option) any later version.
+#
+#       This program is distributed in the hope that it will be useful,
+#       but WITHOUT ANY WARRANTY; without even the implied warranty of
+#       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#       GNU General Public License for more details.
+#
+#       You should have received a copy of the GNU General Public License
+#       along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+#   Description
+#
+#	To learn what TOP LEVEL sections to use in manual pages,
+#	see POSIX/Susv standard and "Utility Description Defaults" at
+#	http://www.opengroup.org/onlinepubs/009695399/utilities/xcu_chap01.html#tag_01_11
+#
+#	This manual page in Perl POD format. Read more at
+#	http://perldoc.perl.org/perlpod.html or run command:
+#
+#	    perldoc perlpod
+#
+#	To check the syntax:
+#
+#	    podchecker *.pod
+#
+#	To create manual:
+#
+#	    pod2man FILE.N.pod > FILE.N
+
+=pod
+
+=head1 NAME
+
+ddnd-updater - Update DOMAIN and IP at dynu.net Dynamic DNS service
+
+=head1 SYNOPSIS
+
+  ddns-updater-dynu [options]
+
+=head1 DESCRIPTION
+
+Program updates DOMAIN and IP address to http://dynu.com
+To use a DDNS service provider, create and account and add dyamic dns domains.
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<-a, --apikey KEY>
+
+The API-Key from
+https://www.dynu.com/ControlPanel/APICredentials
+
+=item B<-c, --confdir CONFDIR>
+
+Location of *.conf files. If given, no other optiona than
+--test and --verbose are used. Typical locations are
+C<~/.config/ddns-updater-dynu> and C</etc/ddns-updater-dynu>.
+
+=item B<-d, --domain>
+
+Required. Domain like example.dynuddns.net in your dynu.com account.
+
+=item B<--g, --getip HOST>
+
+Optinal. Host to get ip. Must return single IP address and nothing
+else. Defaul is ifconfig.co
+
+=item B<-i, --id HOSTID>
+
+Required. The ID of the dynamic host. See B<--query>.
+
+=item B<-I, --ip IP>
+
+Optional. The IP address. If not given, call network.
+See option C<--getip>.
+
+=item B<-Q, --query>
+
+Query hostlist. From this you can find out the HOSTID.
+Display and exit.
+
+=item B<-t, --test>
+
+Test. Run no commands.
+
+=item B<-T, --ttl SECONDS>
+
+Time to live in seconds. Default is 120.
+
+=item B<-v, --verbose>
+
+Display verbose messages.
+
+=item B<-V, --Verson>
+
+Display version information and exit.
+
+=item B<-h, --help>
+
+Display short help and exit.
+
+=back
+
+=head1 EXAMPLES
+
+Show all dynamic hosts. From here you can pick the HOSTID values.
+
+    ddns-updater-dynu --apikey KEY --query
+
+Update IP address for DOMAIN:
+
+     ddns-updater-dynu --apikey KEY --id HOSTID --domain DOMAIN
+
+=head1 BUGS
+
+The program does not use non-POSIX featues like getopt(1) to parse
+options. Due to lack of proper programing language constructs in POSIX
+shell, combining short options in form of B<-vf> is not supported. Use
+separate options like in B<-f> B<-i>.
+
+=head1 ENVIRONMENT
+
+POSIX
+
+=head1 FILES
+
+=head2 CONFIGURATION FILES
+
+There are no default configuration file location. for option
+B<--confdir DIR> the suggested standard locations are
+
+  $HOME/.config/ddns-updater-dynu
+  /etc/ddns-updater-dynu
+
+The configuration file requirements are:
+
+  - Must use *.conf extension.
+  - Written in POSIX shell.
+  - Must define following variables:
+
+    # If empty or does not exist, the configuration is not used
+    ENABLE=yes
+    APIKEY=
+    ID=
+    DOMAIN=
+
+B<Tip>: name the configuration files
+according to domain names like I<host.dynuddns.net.conf>.
+
+=head1 STANDARDS
+
+None.
+
+=head1 AVAILABILITY
+
+https://github.com/jaalto/project--ddns-updater-dynu
+
+=head1 SEE ALSO
+
+ddclient(1)
+ddns-updater(1)
+
+=head1 AUTHORS
+
+Program was written by <jari.aalto@cante.net>
+
+Released under license GNU GPL version 2 or (at your option) any
+later version. For more information about license, visit
+<http://www.gnu.org/copyleft/gpl.html>.
+
+=cut
