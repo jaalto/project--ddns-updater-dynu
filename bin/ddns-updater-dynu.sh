@@ -3,7 +3,7 @@
 # Requires: curl(1)
 
 AUTHOR="Jari Aalto <jari.aalto@cante.net>"
-VERSION="2021.0129.1839"
+VERSION="2021.0129.1857"
 LICENSE="GPL-2+"
 HOMEPAGE="https://github.com/jaalto/project--ddns-updater-dynu"
 
@@ -254,7 +254,7 @@ UpdateByConfdir ()
         if [ "$ENABLE" ]; then
             Update
         else
-            Verbose "CONF not enabled: $file"
+            Verbose "CONF disabled: $file"
         fi
     )
     done
