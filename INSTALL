@@ -1,0 +1,20 @@
+Requires
+
+   POSIX environment
+   Standard POSIX /bin/sh
+   web client: curl
+
+   Perl - only on system wide install with manual pages
+
+SYSTEM WIDE
+
+   make install
+
+MINIMAL MANUAL INSTALL
+
+   See install.sh
+
+INSTALL CONFIGURATION TEMPLATES
+
+   # Edit after copying and enable each one manually
+   cp conf/*.conf $HOME/.config/ddns-updater-dynu/
