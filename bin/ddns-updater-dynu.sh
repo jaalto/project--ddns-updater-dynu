@@ -3,7 +3,7 @@
 # Requires: curl(1)
 
 AUTHOR="Jari Aalto <jari.aalto@cante.net>"
-VERSION="2021.0129.1801"
+VERSION="2021.0129.1839"
 LICENSE="GPL-2+"
 HOMEPAGE="https://github.com/jaalto/project--ddns-updater-dynu"
 
@@ -32,7 +32,6 @@ Help ()
     echo "Synopis: $0 [options]
 DESCRIPTION
     Update DOMAIN and IP at dynu.net Dynamic DNS service.
-    Requires paid registration.
 
 OPTIONS
     -a, --apikey APIKEY
@@ -40,22 +39,24 @@ OPTIONS
         https://www.dynu.com/ControlPanel/APICredentials
 
     -c, --confdir CONFDIR
-        Location of *.conf files. If given, not other optiona that
+        Location of *.conf files. If given, no other option than
         --test and --verbose are used. Typical locations are
         ~/.config/ddns-updater-dynu and /etc/ddns-updater-dynu
 
     -d, --domain DOMAIN
         Required. Domain like example.dynuddns.net in your dynu.com
+        account.
 
     -g, --getip HOST
-        Host to get ip. Must return single IP address and nothing else.
-        Default: $GETIP
+        Optional. Host to get ip. Must return single IP address and
+        nothing else. Default: $GETIP
 
     -i, --id HOSTID
-        Required. The ID of the dynamic host.
+        Required. The ID of the dynamic host. See --query.
 
     -I, --ip IP
         Optional. The IP address. If not given, call network.
+        See option --getip.
 
     -Q, --query
         Query hostlist. From this you can find out the HOSTID.
@@ -71,10 +72,15 @@ OPTIONS
         Display verbose messages.
 
     -V, --version
-        Display verion and exit.
+        Display version information and exit.
+
+    -h, --help
+        Display short help and exit.
 
 EXAMPLES
-    ddns-updater-dynu --confdir ~/.config/ddns-updater-dynu
+    ddns-updater-dynu --apikey KEY --query
+
+    ddns-updater-dynu --confdir ~/.config/ddns-updater-dynu --verbose --test
 
 FILES
     The configuration files are read from directory --confdir CONF
@@ -82,7 +88,7 @@ FILES
 
     Each file must define following variables:
 
-        # If empty or does not exists. This configuration is not used
+        # If empty or does not exist, the configuration is not used
         ENABLE=yes
 
         # Option for --apikey APIKEY
@@ -92,7 +98,7 @@ FILES
         ID=
 
         # Option for --domain DOMAIN
-        DOMAIN
+        DOMAIN=
 
 BUGS
     This is a POSIX shell script. Options must be kept separate. It is
