@@ -25,7 +25,7 @@ be used to periodically update the IP.
 
 5. Create configuration file(s) at ~/.config/ddns-updater-dynu/*.conf
    See ``ddns-updater-dynu --help`` for more information about the content.
-   In short: define APIKEY, DOMAINN and ID varbales write "ENABLE=yes"
+   In short: define APIKEY, DOMAIN, ID and add "ENABLE=yes"
 
 After setting up configuration file(s), call program periodically from
 from cron. You can run in test mode with: ::
