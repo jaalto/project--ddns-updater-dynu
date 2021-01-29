@@ -1,0 +1,1 @@
+*/30 * * * * root { test -x /usr/bin/ddns-updater-dynu || test -x /usr/local/bin/ddns-updater-dynu ; } && ddns-updater-dynu --use-config
