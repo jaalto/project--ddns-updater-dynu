@@ -3,7 +3,7 @@
 # Requires: curl(1)
 
 AUTHOR="Jari Aalto <jari.aalto@cante.net>"
-VERSION="2021.0129.1903"
+VERSION="2021.0129.1916"
 LICENSE="GPL-2+"
 HOMEPAGE="https://github.com/jaalto/project--ddns-updater-dynu"
 
@@ -22,6 +22,8 @@ CONFDIR=
 DOMAIN=
 ID=
 APIKEY=
+
+STATUS=0
 
 # -----------------------------------------------------------------------
 # HELP
@@ -116,6 +118,7 @@ REQUIRES
 Atexit ()
 {
     rm -f "$TMPBASE"*   # Clean up temporary files
+    return $STATUS
 }
 
 Version()
@@ -243,6 +246,7 @@ Update ()
         Verbose "STATUS $(cat "$tmp")"
     fi
 
+    STATUS=$status
     return $status
 }
 
