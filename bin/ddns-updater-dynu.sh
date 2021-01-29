@@ -3,7 +3,7 @@
 # Requires: curl(1)
 
 AUTHOR="Jari Aalto <jari.aalto@cante.net>"
-VERSION="2021.0129.1857"
+VERSION="2021.0129.1903"
 LICENSE="GPL-2+"
 HOMEPAGE="https://github.com/jaalto/project--ddns-updater-dynu"
 
@@ -209,24 +209,39 @@ Update ()
 
     tmp="$TMPBASE"
 
-    ${test:+echo} curl --silent \
-      --request POST "https://api.dynu.com/v2/dns/$ID" \
-      --header "accept: application/json" \
-      --header "Content-Type: application/json" \
-      --header "API-Key: $APIKEY" \
-      --data "{\"name\": \"$DOMAIN\", \
-              \"ipv4Address\":\"$IP\", \
-              \"ttl\":$TTL, \
-              \"ipv4\":true}" \
-    > "$tmp"
+    if [ "$test" ]; then
+        echo \
+        curl --silent \
+            --request POST "https://api.dynu.com/v2/dns/$ID" \
+            --header "accept: application/json" \
+            --header "Content-Type: application/json" \
+            --header "API-Key: $APIKEY" \
+            --data "{\"name\": \"$DOMAIN\", \
+                    \"ipv4Address\":\"$IP\", \
+                    \"ttl\":$TTL, \
+                    \"ipv4\":true}"
+    else
+        curl --silent \
+            --request POST "https://api.dynu.com/v2/dns/$ID" \
+            --header "accept: application/json" \
+            --header "Content-Type: application/json" \
+            --header "API-Key: $APIKEY" \
+            --data "{\"name\": \"$DOMAIN\", \
+                    \"ipv4Address\":\"$IP\", \
+                    \"ttl\":$TTL, \
+                    \"ipv4\":true}" \
+        > "$tmp"
+    fi
 
     status=1
 
-    if grep --quiet '200' "$tmp" ; then
+    if [ -f "$tmp" ] && grep --quiet '200' "$tmp" ; then
         status=0
     fi
 
-    Verbose "STATUS $(cat "$tmp")"
+    if [ ! "$test" ]; then
+        Verbose "STATUS $(cat "$tmp")"
+    fi
 
     return $status
 }
