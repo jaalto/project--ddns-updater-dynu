@@ -225,8 +225,8 @@ install-doc:
 	[ ! "$(INSTALL_OBJS_DOC)" ] || \
 		$(INSTALL_DATA) $(INSTALL_OBJS_DOC) $(DOCDIR)
 
-	$(TAR) $(TAR_OPT_EXCLUDE) --create --file=- $(INSTALL_OBJS_CONF) | \
-	$(TAR) -C $(DOCDIR) --extract --file=-
+#	$(TAR) $(TAR_OPT_EXCLUDE) --create --file=- $(INSTALL_OBJS_CONF) | \
+#	$(TAR) -C $(DOCDIR) --extract --file=-
 
 install-man: man
 	# install-man - Install manual pages
@@ -252,7 +252,7 @@ install-bin:
 	done
 
 # Rule: install - Standard install
-install: install-bin install-defaults install-cron install-man install-doc
+install: install-bin install-cron install-man install-doc
 
 # Rule: install-test - [maintainer] run test installation to tmp/
 install-test:
